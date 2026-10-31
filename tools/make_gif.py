@@ -4,7 +4,7 @@ Frames were taken once per 50 ms tick with the animations slowed down SLOWDOWN t
 shown for 50 / SLOWDOWN ms: the GIF plays at real speed. The inventory panel is found by its light grey
 background and cropped out of the full window.
 
-Usage: python tools/make_gif.py <screenshots dir> <output.gif>   (needs Pillow)
+Usage: python tools/make_gif.py <screenshots dir> <output.gif> [scene prefix, default "gif"]   (needs Pillow)
 """
 import sys
 from pathlib import Path
@@ -36,9 +36,10 @@ def panel_box(image):
 
 def main():
     frames_dir, out = Path(sys.argv[1]), sys.argv[2]
-    paths = sorted(frames_dir.glob("*gif_*.png"))
+    prefix = sys.argv[3] if len(sys.argv) > 3 else "gif"
+    paths = sorted(frames_dir.glob(f"*_{prefix}_*.png"))
     if not paths:
-        sys.exit(f"no gif_*.png frames in {frames_dir}")
+        sys.exit(f"no {prefix}_*.png frames in {frames_dir}")
     box = panel_box(Image.open(paths[-1]))
     frames = [Image.open(p).convert("RGB").crop(box) for p in paths]
     frames = [f.resize((f.width * UPSCALE, f.height * UPSCALE), Image.Resampling.NEAREST) for f in frames]
