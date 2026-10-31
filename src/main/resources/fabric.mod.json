@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "lively_slots",
+  "version": "${version}",
+  "name": "Lively Slots",
+  "description": "Inventory items pop into slots, pulse when a stack grows and fly across on shift-click. Client-side only.",
+  "authors": ["vlads"],
+  "license": "MIT",
+  "icon": "assets/lively_slots/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["dev.vlads.livelyslots.LivelySlots"]
+  },
+  "mixins": ["lively_slots.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25"
+  }
+}
