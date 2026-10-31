@@ -1,12 +1,13 @@
 """Draws the mod icon: an inventory slot with a gem popping into it. 32x32 pixel art scaled to 128x128.
 
-Usage: python tools/draw_icon.py <output.png>
+Usage: python tools/draw_icon.py <output.png> [scale, default 4 = 128x128]
 """
 import struct
 import sys
 import zlib
 
-SIZE, SCALE = 32, 4
+SIZE = 32
+SCALE = int(sys.argv[2]) if len(sys.argv) > 2 else 4
 CLEAR = (0, 0, 0, 0)
 px = [[CLEAR] * SIZE for _ in range(SIZE)]
 

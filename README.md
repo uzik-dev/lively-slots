@@ -31,7 +31,7 @@ Client-side only: install it on your game, servers do not need it. No Fabric API
 
 ## Building
 
-Java 25+ and Minecraft 26.3: `./gradlew build`, the jar is in `build/libs`.
+Java 25+: `./gradlew build` (builds against Minecraft 26.3; the jar runs on 26.1–26.3), the jar is in `build/libs`.
 
 ## License
 

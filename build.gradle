@@ -6,7 +6,8 @@ plugins {
 base {
     archivesName = project.archives_base_name
 }
-version = project.mod_version + "+" + project.minecraft_version
+// One jar covers every 26.1–26.3 release: the slot code it hooks is the same in all of them.
+version = project.mod_version
 group = project.maven_group
 
 dependencies {
