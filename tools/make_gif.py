@@ -15,6 +15,7 @@ SLOWDOWN = 2.5
 TICK_MS = 50
 PANEL = (198, 198, 198)  # vanilla container background
 MARGIN = 4
+UPSCALE = 2  # crisp pixels on the Modrinth page
 
 
 def panel_box(image):
@@ -40,12 +41,18 @@ def main():
         sys.exit(f"no gif_*.png frames in {frames_dir}")
     box = panel_box(Image.open(paths[-1]))
     frames = [Image.open(p).convert("RGB").crop(box) for p in paths]
-    # One shared palette keeps colours stable from frame to frame.
-    palette = frames[0].quantize(colors=255, method=Image.Quantize.MEDIANCUT)
+    frames = [f.resize((f.width * UPSCALE, f.height * UPSCALE), Image.Resampling.NEAREST) for f in frames]
+    # One shared palette keeps colours stable from frame to frame; it is built from frames spread over the
+    # whole clip, so items that only show up later keep their own colours.
+    samples = frames[:: max(1, len(frames) // 8)] + [frames[-1]]
+    strip = Image.new("RGB", (frames[0].width, frames[0].height * len(samples)))
+    for i, sample in enumerate(samples):
+        strip.paste(sample, (0, i * sample.height))
+    palette = strip.quantize(colors=255, method=Image.Quantize.MEDIANCUT)
     gif = [f.quantize(palette=palette, dither=Image.Dither.NONE) for f in frames]
     delay = round(TICK_MS / SLOWDOWN)
     gif[0].save(out, save_all=True, append_images=gif[1:], duration=delay, loop=0, optimize=True, disposal=1)
-    print(f"{out}: {len(gif)} frames, {delay} ms each, {box[2] - box[0]}x{box[3] - box[1]}")
+    print(f"{out}: {len(gif)} frames, {delay} ms each, {gif[0].width}x{gif[0].height}")
 
 
 if __name__ == "__main__":

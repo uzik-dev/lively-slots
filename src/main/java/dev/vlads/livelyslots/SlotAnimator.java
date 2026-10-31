@@ -32,8 +32,9 @@ public final class SlotAnimator {
 
     private record QuickMove(ItemStack stack, int x, int y, long at) {}
 
-    /** How many animations have started since launch; read by tests. */
+    /** How many animations, and how many of them flights, have started since launch; read by tests. */
     public static int animationsStarted;
+    public static int flightsStarted;
 
     private final Map<Slot, Track> tracks = new IdentityHashMap<>();
     private long openedAt;
@@ -72,6 +73,7 @@ public final class SlotAnimator {
                     track.kind = Kind.FLY;
                     track.fromDx = move.x - slot.x;
                     track.fromDy = move.y - slot.y;
+                    flightsStarted++;
                 }
                 animationsStarted++;
             }

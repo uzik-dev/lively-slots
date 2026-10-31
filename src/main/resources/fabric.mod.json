@@ -5,7 +5,7 @@
   "name": "Lively Slots",
   "description": "Inventory items pop into slots, pulse when a stack grows and fly across on shift-click. Client-side only.",
   "authors": [
-    "vlads"
+    "UZIK"
   ],
   "license": "MIT",
   "icon": "assets/lively_slots/icon.png",
