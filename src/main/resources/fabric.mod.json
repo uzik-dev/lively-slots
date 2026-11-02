@@ -8,6 +8,10 @@
     "UZIK"
   ],
   "license": "MIT",
+  "contact": {
+    "sources": "https://github.com/uzik-dev/lively-slots",
+    "issues": "https://github.com/uzik-dev/lively-slots/issues"
+  },
   "icon": "assets/lively_slots/icon.png",
   "environment": "client",
   "entrypoints": {
